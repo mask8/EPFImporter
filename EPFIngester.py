@@ -42,6 +42,9 @@ import os
 import datetime
 import warnings
 import logging
+import encodings
+# creating encoding alias as MySQLdb doesn't understand utf8mb4
+encodings._aliases["utf8mb4"] = "utf_8"
 
 DATETIME_FORMAT = "%y-%m-%d %H:%M:%S"
 
@@ -248,7 +251,7 @@ class Ingester(object):
                 database=self.dbName)
         else:
             conn = MySQLdb.connect(
-                charset='utf8',
+                charset='utf8mb4',
                 host=self.dbHost,
                 user=self.dbUser,
                 passwd=self.dbPassword,
